@@ -1,0 +1,29 @@
+{
+  "name": "time-tracker",
+  "version": "0.0.0",
+  "description": "Time tracker example for quinn",
+  "main": "index.js",
+  "scripts": {
+    "start": "./quinn server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Krems <jan.krems@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quinnjs/time-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quinnjs/time-tracker/issues"
+  },
+  "homepage": "https://github.com/quinnjs/time-tracker",
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "quinn": "^2.3.0",
+    "quinn-cli": "^1.0.0",
+    "quinn-router": "^1.0.1"
+  },
+  "engines": {
+    "node": "0.11.x"
+  }
+}
