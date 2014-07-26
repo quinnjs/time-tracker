@@ -5,10 +5,16 @@ require('node-jsx').install({
   harmony: true
 });
 
+var quinn = require('quinn');
 var route = require('quinn-router').route;
 
 var mods = require('./lib/mods')({
   track: require('./mods/track')
 });
 
-module.exports = route(mods.routes);
+var staticFiles = require('./lib/static')(__dirname + '/public');
+
+module.exports = quinn.firstHandler(
+  staticFiles,
+  route(mods.routes)
+);

@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "description": "Time tracker example for quinn",
   "main": "index.js",
+  "browser": "mods/track/browser.js",
   "scripts": {
     "start": "./quinn server",
+    "bundle": "browserify . > public/assets/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Krems <jan.krems@gmail.com>",
@@ -33,5 +35,12 @@
   },
   "engines": {
     "node": "0.11.x"
+  },
+  "devDependencies": {
+    "browserify": "^5.9.1",
+    "reactify": "^0.14.0"
+  },
+  "browserify": {
+    "transform": [ "reactify" ]
   }
 }

@@ -18,6 +18,7 @@ var BootstrapPage = React.createClass({
         <div className="container">
           {this.props.children}
         </div>
+        <script src="/assets/main.js"></script>
       </body>
     </html>;
   }
@@ -37,14 +38,26 @@ function formatInterval(interval) {
 }
 
 var TrackList = React.createClass({
+  stopButton: function() {
+    return (
+      <button type="button" className="btn btn-primary"
+              onClick={this.stop}>
+        Stop
+      </button>
+    );
+  },
+
+  stop: function() {
+    console.log('stop!');
+  },
+
   renderTrack: function(track) {
-    var duration = getDuration(track);
+    var duration =
+      formatInterval(getDuration(track)) || this.stopButton();
 
     return <li className="list-group-item" key={track.id}>
-      <h5>
-        {track.title}
-        <span className="pull-right">{formatInterval(duration)}</span>
-      </h5>
+      <span className="pull-right">{duration}</span>
+      <h5>{track.title}</h5>
     </li>;
   },
 
@@ -63,6 +76,9 @@ var TrackPage = React.createClass({
           <h1>Time tracker</h1>
           <TrackList tracks={this.props.tracks} />
         </div>
+      </div>
+      <div style={{display: 'none'}} id="TrackPageData">
+        {JSON.stringify(this.props)}
       </div>
     </BootstrapPage>;
   }
