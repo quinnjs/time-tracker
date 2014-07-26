@@ -1,0 +1,6 @@
+#!/bin/bash
+export PATH="./node_modules/.bin:$PATH"
+export NODE_ENV=${NODE_ENV:-development}
+export DATABASE_URL=${DATABASE_URL:-postgres://localhost:5432/ttrack_$NODE_ENV}
+
+exec node node_modules/.bin/db-migrate "$@"
