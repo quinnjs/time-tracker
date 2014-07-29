@@ -38,22 +38,24 @@ function formatInterval(interval) {
 }
 
 var TrackList = React.createClass({
-  stopButton: function() {
+  stopButton: function(track) {
     return (
       <button type="button" className="btn btn-primary"
-              onClick={this.stop}>
+              onClick={this.stop.bind(this, track)}>
         Stop
       </button>
     );
   },
 
-  stop: function() {
-    console.log('stop!');
+  stop: function(track) {
+    if (this.props.onStop) {
+      this.props.onStop(track);
+    }
   },
 
   renderTrack: function(track) {
     var duration =
-      formatInterval(getDuration(track)) || this.stopButton();
+      formatInterval(getDuration(track)) || this.stopButton(track);
 
     return <li className="list-group-item" key={track.id}>
       <span className="pull-right">{duration}</span>
@@ -69,12 +71,17 @@ var TrackList = React.createClass({
 });
 
 var TrackPage = React.createClass({
+  handleStop: function(track) {
+    console.log('stop track', track);
+  },
+
   render: function() {
     return <BootstrapPage title="Time tracker">
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
           <h1>Time tracker</h1>
-          <TrackList tracks={this.props.tracks} />
+          <TrackList tracks={this.props.tracks}
+                     onStop={this.handleStop} />
         </div>
       </div>
       <div style={{display: 'none'}} id="TrackPageData">

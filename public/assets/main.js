@@ -39,28 +39,29 @@ function formatInterval(interval) {
 }
 
 var TrackList = React.createClass({displayName: 'TrackList',
-  stopButton: function() {
+  stopButton: function(track) {
     return (
       React.DOM.button({type: "button", className: "btn btn-primary", 
-              onClick: this.stop}, 
+              onClick: this.stop.bind(this, track)}, 
         "Stop"
       )
     );
   },
 
-  stop: function() {
+  stop: function(track) {
     console.log('stop!');
+    if (this.props.onStop) {
+      this.props.onStop(track);
+    }
   },
 
   renderTrack: function(track) {
     var duration =
-      formatInterval(getDuration(track)) || this.stopButton();
+      formatInterval(getDuration(track)) || this.stopButton(track);
 
     return React.DOM.li({className: "list-group-item", key: track.id}, 
       React.DOM.span({className: "pull-right"}, duration), 
-      React.DOM.h5(null, 
-        track.title
-      )
+      React.DOM.h5(null, track.title)
     );
   },
 
@@ -72,12 +73,17 @@ var TrackList = React.createClass({displayName: 'TrackList',
 });
 
 var TrackPage = React.createClass({displayName: 'TrackPage',
+  handleStop: function(track) {
+    console.log('stop track', track);
+  },
+
   render: function() {
     return BootstrapPage({title: "Time tracker"}, 
       React.DOM.div({className: "row"}, 
         React.DOM.div({className: "col-md-6 col-md-offset-3"}, 
           React.DOM.h1(null, "Time tracker"), 
-          TrackList({tracks: this.props.tracks})
+          TrackList({tracks: this.props.tracks, 
+                     onStop: this.handleStop})
         )
       ), 
       React.DOM.div({style: {display: 'none'}, id: "TrackPageData"}, 
