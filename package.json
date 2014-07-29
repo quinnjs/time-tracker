@@ -30,7 +30,7 @@
     "quinn": "^2.3.0",
     "quinn-cli": "^1.0.0",
     "quinn-respond": "^2.0.1",
-    "quinn-router": "^1.0.1",
+    "quinn-router": "^2.0.0",
     "react": "^0.11.1",
     "resolve-deep": "^1.0.1"
   },
